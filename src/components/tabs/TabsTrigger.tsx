@@ -1,18 +1,17 @@
 import { useTabs } from "./context"
 
-type TabsTriggerProps = {
+interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string
-  children: React.ReactNode
-  className?: string
 }
 
-export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
+export function TabsTrigger({ value, children, className, ...props }: TabsTriggerProps) {
   const { value: activeTab, setValue } = useTabs()
 
   const isActive = activeTab === value
 
   return (
     <button
+      {...props}
       role="tab"
       aria-selected={isActive}
       className={className}

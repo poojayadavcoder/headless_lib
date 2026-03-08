@@ -1,11 +1,12 @@
 import { useAccordion } from "./context"
 import { useItem } from "./AccordionItem"
 
+interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
 export function AccordionTrigger({
-  children
-}: {
-  children: React.ReactNode
-}) {
+  children,
+  ...props
+}: AccordionTriggerProps) {
   const { openItem, setOpenItem } = useAccordion()
   const value = useItem()
 
@@ -27,8 +28,12 @@ export function AccordionTrigger({
 
   return (
     <button
+      {...props}
       aria-expanded={isOpen}
-      onClick={handleToggle}
+      onClick={(e) => {
+        handleToggle()
+        props.onClick?.(e)
+      }}
       onKeyDown={(e) => {
         const triggers = Array.from(document.querySelectorAll('.accordion-root button')) as HTMLElement[]
         const index = triggers.indexOf(e.currentTarget)

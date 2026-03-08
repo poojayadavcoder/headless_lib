@@ -1,4 +1,5 @@
-export declare function TabsList({ children, className }: {
+interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
-    className?: string;
-}): import("react/jsx-runtime").JSX.Element;
+}
+export declare function TabsList({ children, className, style, ...props }: TabsListProps): import("react/jsx-runtime").JSX.Element;
+export {};

@@ -1,11 +1,19 @@
 import { useDialog } from "./context"
 
-export function DialogClose() {
+interface DialogCloseProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export function DialogClose({ children, ...props }: DialogCloseProps) {
   const { setOpen } = useDialog()
 
   return (
-    <button onClick={() => setOpen(false)}>
-      Close
+    <button 
+      {...props}
+      onClick={(e) => {
+        setOpen(false)
+        props.onClick?.(e)
+      }}
+    >
+      {children || "Close"}
     </button>
   )
 }

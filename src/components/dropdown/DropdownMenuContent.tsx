@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react"
 import { useDropdown } from "./context"
 
+interface DropdownMenuContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode
+}
+
 export function DropdownMenuContent({
   children,
   className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
+  style,
+  ...props
+}: DropdownMenuContentProps) {
   const { open, setOpen } = useDropdown()
   const contentRef = useRef<HTMLDivElement>(null)
   const [typeahead, setTypeahead] = useState("")
@@ -68,6 +71,7 @@ export function DropdownMenuContent({
 
   return (
     <div
+      {...props}
       ref={contentRef}
       id="dropdown-menu"
       role="menu"
@@ -76,6 +80,7 @@ export function DropdownMenuContent({
         position: "absolute",
         top: "100%",
         zIndex: 50,
+        ...style
       }}
     >
       {children}

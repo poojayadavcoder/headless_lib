@@ -1,15 +1,16 @@
-import { Dialog, Dropdown, Tabs, Accordion } from "@py15/headless-kit"
-import { useState } from "react"
-import "./index.css"
+// App.tsx
+import { Dialog, Dropdown, Tabs, Accordion } from "@py15/headless-kit";
+import React from "react";
+import "./index.css";
 
-function App() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-
+const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-8">
       <div className="max-w-4xl mx-auto space-y-12">
         <header className="text-center space-y-4">
-          <h1 className="text-5xl font-extrabold tracking-tight text-indigo-600">Headless UI Kit</h1>
+          <h1 className="text-5xl font-extrabold tracking-tight text-indigo-600">
+            Headless UI Kit
+          </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             A beautiful, unstyled, accessible component library built with React.
           </p>
@@ -19,134 +20,108 @@ function App() {
           {/* Accordion Demo */}
           <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
             <h2 className="text-2xl font-bold border-b pb-2 text-slate-800">Accordion</h2>
-            <Accordion>
-              <div className="space-y-2">
-                <Accordion.Item value="item-1">
-                  <Accordion.Trigger>
-                    <div className="flex justify-between items-center w-full bg-slate-100 hover:bg-slate-200 px-4 py-3 rounded-lg font-medium transition-colors">
-                      <span>Is it accessible?</span>
-                    </div>
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <div className="p-4 text-slate-600 bg-slate-50 border border-slate-100 rounded-lg mt-2">
-                      Yes. It adheres to the WAI-ARIA design pattern.
-                    </div>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="item-2">
-                  <Accordion.Trigger>
-                    <div className="flex justify-between items-center w-full bg-slate-100 hover:bg-slate-200 px-4 py-3 rounded-lg font-medium transition-colors">
-                      <span>Is it easily styled?</span>
-                    </div>
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <div className="p-4 text-slate-600 bg-slate-50 border border-slate-100 rounded-lg mt-2">
-                      Absolutely! You can use CSS, Tailwind CSS, or any styling solution you prefer.
-                    </div>
-                  </Accordion.Content>
-                </Accordion.Item>
-              </div>
+            <Accordion className="w-full border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100 shadow-sm">
+              <Accordion.Item value="item-1">
+                <Accordion.Trigger className="flex w-full items-center justify-between px-5 py-4 text-left font-medium text-slate-700 hover:bg-slate-50 transition-all bg-white group">
+                  <span>Is it accessible?</span>
+                  <svg className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </Accordion.Trigger>
+                <Accordion.Content className="px-5 py-4 text-slate-600 bg-slate-50/50 leading-relaxed border-t border-slate-100">
+                  Yes. It follows WAI-ARIA design patterns.
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="item-2">
+                <Accordion.Trigger className="flex w-full items-center justify-between px-5 py-4 text-left font-medium text-slate-700 hover:bg-slate-50 transition-all bg-white group">
+                  <span>Is it easily styled?</span>
+                  <svg className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </Accordion.Trigger>
+                <Accordion.Content className="px-5 py-4 text-slate-600 bg-slate-50/50 leading-relaxed border-t border-slate-100">
+                  Absolutely! Use CSS, Tailwind, or any styling solution.
+                </Accordion.Content>
+              </Accordion.Item>
             </Accordion>
           </section>
 
-          {/* Dialog Demo */}
+          {/* Dialog Demo (self-controlled) */}
           <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
             <h2 className="text-2xl font-bold border-b pb-2 text-slate-800">Dialog</h2>
-            <div className="flex justify-center items-center h-40 bg-slate-50 rounded-lg border border-slate-100">
-              <button
-                onClick={() => setIsDialogOpen(true)}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-xl transition-colors shadow-sm"
-              >
+            <Dialog>
+              <Dialog.Trigger className="px-4 py-2 bg-indigo-600 text-white rounded-lg">
                 Open Dialog
-              </button>
-            </div>
-
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" />
-              <div className="fixed inset-0 flex items-center justify-center p-4 z-50 pointer-events-none">
-                <Dialog.Content className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl pointer-events-auto">
-                  <Dialog.Title className="text-xl font-bold text-slate-900 mb-2">
-                    Payment successful
-                  </Dialog.Title>
-                  <p className="text-slate-600 mb-6">
-                    Your payment has been successfully submitted. We've sent you an email with all of the details of your order.
-                  </p>
-                  <button
-                    onClick={() => setIsDialogOpen(false)}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2.5 rounded-lg transition-colors"
-                  >
-                    Got it, thanks!
-                  </button>
-                </Dialog.Content>
-              </div>
+              </Dialog.Trigger>
+              <Dialog.Overlay className="bg-gray-400/30" />
+              <Dialog.Content>
+                  <Dialog.Title>Dialog Test</Dialog.Title>
+                  <p>Your dialog is working without useState!</p>
+                  <Dialog.Close className="mt-4 px-4 py-2 bg-indigo-900 text-white rounded-lg">
+                    Close
+                  </Dialog.Close>
+              </Dialog.Content>
             </Dialog>
           </section>
 
           {/* Dropdown Demo */}
           <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
             <h2 className="text-2xl font-bold border-b pb-2 text-slate-800">Dropdown</h2>
-            <div className="flex justify-center items-start h-48 bg-slate-50 rounded-lg border border-slate-100 pt-6">
-              <Dropdown>
-                <Dropdown.Trigger>
-                  <div className="bg-white border hover:bg-slate-50 text-slate-800 font-medium py-2.5 px-5 rounded-lg transition-colors shadow-sm inline-flex items-center gap-2">
-                    Options
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>
-                  </div>
-                </Dropdown.Trigger>
-                <Dropdown.Content className="bg-white border rounded-xl shadow-lg mt-2 min-w-[200px] p-1.5 z-10 absolute left-1/2 -translate-x-1/2">
-                  <Dropdown.Item className="px-3 py-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-md cursor-pointer text-sm font-medium transition-colors">
-                    Account settings
-                  </Dropdown.Item>
-                  <Dropdown.Item className="px-3 py-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-md cursor-pointer text-sm font-medium transition-colors">
-                    Support
-                  </Dropdown.Item>
-                  <Dropdown.Item className="px-3 py-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-md cursor-pointer text-sm font-medium transition-colors">
-                    License
-                  </Dropdown.Item>
-                  <div className="h-px bg-slate-100 my-1 mx-2"></div>
-                  <Dropdown.Item className="px-3 py-2 hover:bg-red-50 text-red-600 rounded-md cursor-pointer text-sm font-medium transition-colors">
-                    Sign out
-                  </Dropdown.Item>
-                </Dropdown.Content>
-              </Dropdown>
-            </div>
+            <Dropdown className="relative inline-block text-left">
+              <Dropdown.Trigger className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-xl font-medium text-slate-700 shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-[0.98]">
+                <span>Options</span>
+                <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Dropdown.Trigger>
+              <Dropdown.Content className="absolute left-0 mt-2 w-56 p-1.5 bg-white border border-slate-100 rounded-xl shadow-xl shadow-indigo-100/50 z-50 focus:outline-none overflow-hidden">
+                <Dropdown.Item className="flex items-center w-full px-3 py-2.5 text-sm text-slate-600 rounded-lg hover:bg-indigo-50 hover:text-indigo-700 transition-colors cursor-pointer outline-none">
+                  Account settings
+                </Dropdown.Item>
+                <Dropdown.Item className="flex items-center w-full px-3 py-2.5 text-sm text-slate-600 rounded-lg hover:bg-indigo-50 hover:text-indigo-700 transition-colors cursor-pointer outline-none">
+                  Support
+                </Dropdown.Item>
+                <Dropdown.Item className="flex items-center w-full px-3 py-2.5 text-sm text-slate-600 rounded-lg hover:bg-indigo-50 hover:text-indigo-700 transition-colors cursor-pointer outline-none">
+                  License
+                </Dropdown.Item>
+              </Dropdown.Content>
+            </Dropdown>
           </section>
 
           {/* Tabs Demo */}
           <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
             <h2 className="text-2xl font-bold border-b pb-2 text-slate-800">Tabs</h2>
-            
-            <Tabs defaultValue="tab1">
-              <Tabs.List className="flex space-x-1 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/50">
+            <Tabs defaultValue="tab1" className="w-full">
+              <Tabs.List className="flex p-1 bg-slate-100 rounded-xl gap-1">
                 <Tabs.Trigger 
                   value="tab1" 
-                  className="w-full py-2.5 text-sm font-medium text-slate-600 rounded-lg hover:bg-white/50 hover:text-slate-800 transition-all data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                  className="flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-all
+                            data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm
+                            text-slate-500 hover:text-slate-700 hover:bg-white/50"
                 >
-                  Account
+                  Tab 1
                 </Tabs.Trigger>
                 <Tabs.Trigger 
                   value="tab2" 
-                  className="w-full py-2.5 text-sm font-medium text-slate-600 rounded-lg hover:bg-white/50 hover:text-slate-800 transition-all data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                  className="flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-all
+                            data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm
+                            text-slate-500 hover:text-slate-700 hover:bg-white/50"
                 >
-                  Password
+                  Tab 2
                 </Tabs.Trigger>
               </Tabs.List>
-              <div className="mt-4 p-5 bg-slate-50 rounded-xl border border-slate-100 h-32 flex items-center justify-center">
-                <Tabs.Content value="tab1" className="text-slate-600 font-medium animate-in fade-in duration-300 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-md">
-                  Make changes to your account here.
-                </Tabs.Content>
-                <Tabs.Content value="tab2" className="text-slate-600 font-medium animate-in fade-in duration-300 outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-md">
-                  Change your password here.
-                </Tabs.Content>
-              </div>
+              <Tabs.Content value="tab1" className="mt-4 p-4 bg-white border border-slate-100 rounded-xl text-slate-600 leading-relaxed shadow-sm">
+                Content for the first tab. It's clean, accessible, and looks great with zero effort.
+              </Tabs.Content>
+              <Tabs.Content value="tab2" className="mt-4 p-4 bg-white border border-slate-100 rounded-xl text-slate-600 leading-relaxed shadow-sm">
+                Content for the second tab. The styling is perfectly consistent with the rest of the UI kit.
+              </Tabs.Content>
             </Tabs>
           </section>
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

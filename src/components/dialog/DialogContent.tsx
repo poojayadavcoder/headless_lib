@@ -2,7 +2,11 @@ import { useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { useDialog } from "./context"
 
-export function DialogContent({ children, className }: { children: React.ReactNode, className?: string }) {
+interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode
+}
+
+export function DialogContent({ children, className, style, ...props }: DialogContentProps) {
   const { open, setOpen } = useDialog()
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -54,6 +58,7 @@ export function DialogContent({ children, className }: { children: React.ReactNo
 
   return createPortal(
     <div 
+      {...props}
       ref={contentRef}
       role="dialog" 
       aria-modal="true"
@@ -66,7 +71,8 @@ export function DialogContent({ children, className }: { children: React.ReactNo
         zIndex: 1000,
         background: 'white',
         padding: '2rem',
-        boxShadow: '0 0 10px rgba(0,0,0,0.5)'
+        boxShadow: '0 0 10px rgba(0,0,0,0.5)',
+        ...style
       }}
     >
       {children}

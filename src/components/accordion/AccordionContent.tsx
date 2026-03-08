@@ -1,11 +1,12 @@
 import { useAccordion } from "./context"
 import { useItem } from "./AccordionItem"
 
+interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+
 export function AccordionContent({
-  children
-}: {
-  children: React.ReactNode
-}) {
+  children,
+  ...props
+}: AccordionContentProps) {
   const { openItem } = useAccordion()
   const value = useItem()
 
@@ -15,5 +16,5 @@ export function AccordionContent({
 
   if (!isOpen) return null
 
-  return <div>{children}</div>
+  return <div {...props}>{children}</div>
 }

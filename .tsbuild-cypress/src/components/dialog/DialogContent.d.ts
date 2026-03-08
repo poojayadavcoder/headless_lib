@@ -1,4 +1,5 @@
-export declare function DialogContent({ children, className }: {
+interface DialogContentProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
-    className?: string;
-}): import("react").ReactPortal | null;
+}
+export declare function DialogContent({ children, className, style, ...props }: DialogContentProps): import("react").ReactPortal | null;
+export {};

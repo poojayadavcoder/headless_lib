@@ -2,16 +2,18 @@ import { createContext, useContext } from "react"
 
 const ItemContext = createContext<string | null>(null)
 
+interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  value: string
+}
+
 export function AccordionItem({
   value,
-  children
-}: {
-  value: string
-  children: React.ReactNode
-}) {
+  children,
+  ...props
+}: AccordionItemProps) {
   return (
     <ItemContext.Provider value={value}>
-      <div>{children}</div>
+      <div {...props}>{children}</div>
     </ItemContext.Provider>
   )
 }

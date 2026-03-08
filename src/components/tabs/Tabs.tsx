@@ -1,14 +1,22 @@
 import { useState } from "react"
 import { TabsContext } from "./context"
 
-interface TabsProps {
+interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: string
   defaultValue?: string
   onValueChange?: (value: string) => void
   children: React.ReactNode
 }
 
-export function Tabs({ value: controlledValue, defaultValue, onValueChange, children }: TabsProps) {
+export function Tabs({ 
+  value: controlledValue, 
+  defaultValue, 
+  onValueChange, 
+  children,
+  className,
+  style,
+  ...props 
+}: TabsProps) {
   const [internalValue, setInternalValue] = useState(defaultValue)
   
   const isControlled = controlledValue !== undefined
@@ -23,7 +31,9 @@ export function Tabs({ value: controlledValue, defaultValue, onValueChange, chil
 
   return (
     <TabsContext.Provider value={{ value: value || "", setValue }}>
-      {children}
+      <div {...props} className={className} style={style}>
+        {children}
+      </div>
     </TabsContext.Provider>
   )
 }

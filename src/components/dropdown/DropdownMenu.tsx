@@ -1,14 +1,22 @@
 import { useEffect, useRef, useState } from "react"
 import { DropdownContext } from "./context"
 
-interface DropdownProps {
+interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   open?: boolean
   onOpenChange?: (open: boolean) => void
   defaultOpen?: boolean
 }
 
-export function DropdownMenu({ children, open: controlledOpen, onOpenChange, defaultOpen = false }: DropdownProps) {
+export function DropdownMenu({ 
+  children, 
+  open: controlledOpen, 
+  onOpenChange, 
+  defaultOpen = false,
+  className,
+  style,
+  ...props 
+}: DropdownProps) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -37,7 +45,12 @@ export function DropdownMenu({ children, open: controlledOpen, onOpenChange, def
 
   return (
     <DropdownContext.Provider value={{ open, setOpen }}>
-      <div ref={containerRef} style={{ position: "relative", display: "inline-block" }}>
+      <div 
+        {...props}
+        ref={containerRef} 
+        className={className}
+        style={{ position: "relative", display: "inline-block", ...style }}
+      >
         {children}
       </div>
     </DropdownContext.Provider>

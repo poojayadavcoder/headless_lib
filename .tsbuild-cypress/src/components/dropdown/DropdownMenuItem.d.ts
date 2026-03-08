@@ -1,5 +1,5 @@
-export declare function DropdownMenuItem({ children, onSelect, className, }: {
-    children: React.ReactNode;
+interface DropdownMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
     onSelect?: () => void;
-    className?: string;
-}): import("react/jsx-runtime").JSX.Element;
+}
+export declare function DropdownMenuItem({ children, onSelect, className, ...props }: DropdownMenuItemProps): import("react/jsx-runtime").JSX.Element;
+export {};

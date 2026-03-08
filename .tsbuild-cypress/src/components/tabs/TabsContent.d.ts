@@ -1,7 +1,5 @@
-type TabsContentProps = {
+interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
     value: string;
-    children: React.ReactNode;
-    className?: string;
-};
-export declare function TabsContent({ value, children, className }: TabsContentProps): import("react/jsx-runtime").JSX.Element | null;
+}
+export declare function TabsContent({ value, children, className, ...props }: TabsContentProps): import("react/jsx-runtime").JSX.Element | null;
 export {};

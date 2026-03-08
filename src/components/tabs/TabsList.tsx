@@ -1,6 +1,10 @@
 import { useRef, useEffect } from "react"
 
-export function TabsList({ children, className }: { children: React.ReactNode, className?: string }) {
+interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode
+}
+
+export function TabsList({ children, className, style, ...props }: TabsListProps) {
   const listRef = useRef<HTMLDivElement>(null)
   
   useEffect(() => {
@@ -31,7 +35,13 @@ export function TabsList({ children, className }: { children: React.ReactNode, c
   }, [])
 
   return (
-    <div ref={listRef} role="tablist" className={className} style={{ display: "flex", gap: "8px" }}>
+    <div 
+      {...props}
+      ref={listRef} 
+      role="tablist" 
+      className={className} 
+      style={{ display: "flex", gap: "8px", ...style }}
+    >
       {children}
     </div>
   )

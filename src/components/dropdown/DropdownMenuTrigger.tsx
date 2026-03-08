@@ -1,10 +1,11 @@
 import { useDropdown } from "./context"
 
+interface DropdownMenuTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
 export function DropdownMenuTrigger({
   children,
-}: {
-  children: React.ReactNode
-}) {
+  ...props
+}: DropdownMenuTriggerProps) {
   const { open, setOpen } = useDropdown()
 
   return (
@@ -12,7 +13,11 @@ export function DropdownMenuTrigger({
        aria-haspopup="menu"
        aria-expanded={open}
        aria-controls="dropdown-menu"
-       onClick={() => setOpen(!open)}
+       {...props}
+       onClick={(e) => {
+         setOpen(!open)
+         props.onClick?.(e)
+       }}
     >
       {children}
     </button>

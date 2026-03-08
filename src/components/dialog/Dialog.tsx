@@ -1,14 +1,22 @@
 import { useState } from "react"
 import { DialogContext } from "./context"
 
-interface DialogProps {
+interface DialogProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   open?: boolean
   onOpenChange?: (open: boolean) => void
   defaultOpen?: boolean
 }
 
-export function Dialog({ children, open: controlledOpen, onOpenChange, defaultOpen = false }: DialogProps) {
+export function Dialog({ 
+  children, 
+  open: controlledOpen, 
+  onOpenChange, 
+  defaultOpen = false,
+  className,
+  style,
+  ...props 
+}: DialogProps) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen)
   
   const isControlled = controlledOpen !== undefined
@@ -23,7 +31,9 @@ export function Dialog({ children, open: controlledOpen, onOpenChange, defaultOp
 
   return (
     <DialogContext.Provider value={{ open, setOpen }}>
-      {children}
+      <div {...props} className={className} style={style}>
+        {children}
+      </div>
     </DialogContext.Provider>
   )
 }

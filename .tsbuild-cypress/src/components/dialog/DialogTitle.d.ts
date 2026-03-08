@@ -1,4 +1,5 @@
-export declare function DialogTitle({ children, className }: {
+interface DialogTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
     children: React.ReactNode;
-    className?: string;
-}): import("react/jsx-runtime").JSX.Element;
+}
+export declare function DialogTitle({ children, className, style, ...props }: DialogTitleProps): import("react/jsx-runtime").JSX.Element;
+export {};

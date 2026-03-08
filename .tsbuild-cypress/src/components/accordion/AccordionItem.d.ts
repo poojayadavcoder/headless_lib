@@ -1,5 +1,6 @@
-export declare function AccordionItem({ value, children }: {
+interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
     value: string;
-    children: React.ReactNode;
-}): import("react/jsx-runtime").JSX.Element;
+}
+export declare function AccordionItem({ value, children, ...props }: AccordionItemProps): import("react/jsx-runtime").JSX.Element;
 export declare function useItem(): string;
+export {};

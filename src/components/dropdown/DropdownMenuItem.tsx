@@ -1,14 +1,15 @@
 import { useDropdown } from "./context"
 
+interface DropdownMenuItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  onSelect?: () => void
+}
+
 export function DropdownMenuItem({
   children,
   onSelect,
   className,
-}: {
-  children: React.ReactNode
-  onSelect?: () => void
-  className?: string
-}) {
+  ...props
+}: DropdownMenuItemProps) {
   const { setOpen } = useDropdown()
 
   const handleSelect = () => {
@@ -18,6 +19,7 @@ export function DropdownMenuItem({
 
   return (
     <div
+      {...props}
       role="menuitem"
       tabIndex={0}
       className={className}

@@ -1,15 +1,13 @@
 import { useTabs } from "./context"
 
-type TabsContentProps = {
+interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string
-  children: React.ReactNode
-  className?: string
 }
 
-export function TabsContent({ value, children, className }: TabsContentProps) {
+export function TabsContent({ value, children, className, ...props }: TabsContentProps) {
   const { value: activeTab } = useTabs()
 
   if (activeTab !== value) return null
 
-  return <div role="tabpanel" className={className}>{children}</div>
+  return <div {...props} role="tabpanel" className={className}>{children}</div>
 }

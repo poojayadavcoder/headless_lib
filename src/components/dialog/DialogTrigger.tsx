@@ -1,16 +1,19 @@
 import { useDialog } from "./context"
 
-interface DialogTriggerProps {
-  children: React.ReactNode
-}
+interface DialogTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export function DialogTrigger({ children }: DialogTriggerProps) {
+export function DialogTrigger({ children, ...props }: DialogTriggerProps) {
   const { setOpen } = useDialog()
 
   return (
     <button
+      {...props}
       aria-haspopup="dialog"
-      onClick={() => setOpen(true)}>
+      onClick={(e) => {
+        setOpen(true)
+        props.onClick?.(e)
+      }}
+    >
       {children}
     </button>
   )
