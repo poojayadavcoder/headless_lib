@@ -18,6 +18,13 @@ export function DropdownMenuTrigger({
          setOpen(!open)
          props.onClick?.(e)
        }}
+       onKeyDown={(e) => {
+         if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === " " || e.key === "Enter") {
+           setOpen(true)
+           e.preventDefault()
+         }
+         props.onKeyDown?.(e)
+       }}
     >
       {children}
     </button>

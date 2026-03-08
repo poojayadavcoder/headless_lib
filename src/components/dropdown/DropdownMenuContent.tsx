@@ -43,29 +43,44 @@ export function DropdownMenuContent({
         setOpen(false)
         e.preventDefault()
       } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-        const newTypeahead = typeahead + e.key.toLowerCase()
+        const char = e.key.toLowerCase()
+        const newTypeahead = typeahead + char
         setTypeahead(newTypeahead)
 
         if (typeaheadTimerRef.current) window.clearTimeout(typeaheadTimerRef.current)
-        typeaheadTimerRef.current = window.setTimeout(() => setTypeahead(""), 500)
+        typeaheadTimerRef.current = window.setTimeout(() => setTypeahead(""), 750)
 
-        const match = items.find(item => 
-          item.textContent?.toLowerCase().startsWith(newTypeahead)
+        const matches = items.filter(item => 
+          item.textContent?.trim().toLowerCase().startsWith(newTypeahead)
         )
-        if (match) match.focus()
+
+        if (matches.length > 0) {
+          let target: HTMLElement | undefined
+          if (newTypeahead.length === 1 && matches.includes(document.activeElement as HTMLElement)) {
+            const currIdx = matches.indexOf(document.activeElement as HTMLElement)
+            target = matches[(currIdx + 1) % matches.length]
+          } else {
+            target = matches[0]
+          }
+          target?.focus()
+          e.preventDefault()
+        }
       }
     }
 
     document.addEventListener("keydown", handleKeyDown)
-    
-    const items = contentRef.current ? Array.from(contentRef.current.querySelectorAll('[role="menuitem"]')) as HTMLElement[] : []
-    if (items.length > 0) items[0].focus()
-
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
       if (typeaheadTimerRef.current) window.clearTimeout(typeaheadTimerRef.current)
     }
   }, [open, setOpen, typeahead])
+
+  useEffect(() => {
+    if (open && contentRef.current) {
+      const items = Array.from(contentRef.current.querySelectorAll('[role="menuitem"]')) as HTMLElement[]
+      if (items.length > 0) items[0].focus()
+    }
+  }, [open])
 
   if (!open) return null
 

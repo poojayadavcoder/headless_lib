@@ -30,9 +30,6 @@ export function DropdownMenuItem({
           e.preventDefault()
         }
       }}
-      style={{
-        outline: "none",
-      }}
     >
       {children}
     </div>
