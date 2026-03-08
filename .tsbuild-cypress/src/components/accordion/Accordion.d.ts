@@ -1,0 +1,8 @@
+interface AccordionProps {
+    children: React.ReactNode;
+    value?: string | string[];
+    onValueChange?: (value: any) => void;
+    defaultValue?: string | string[];
+}
+export declare function Accordion({ children, value: controlledValue, onValueChange, defaultValue }: AccordionProps): import("react/jsx-runtime").JSX.Element;
+export {};
