@@ -1,27 +1,35 @@
-# Headless UI Library
+# @py15/headless-kit
 
 A premium, accessible, and tree-shakable headless UI library for React.
 
-## 🚀 Installation
+## 🔗 Project Links
+
+- **GitHub Repository**: [https://github.com/poojayadavcoder/headless_lib](https://github.com/poojayadavcoder/headless_lib.git)
+- **NPM Package**: [https://www.npmjs.com/package/@py15/headless-kit](https://www.npmjs.com/package/@py15/headless-kit)
+
+## 🚀 Quick Start
+
+### Installation
 
 ```bash
 npm install @py15/headless-kit
 ```
 
-## 📖 Usage
+## 📖 Component Usage
 
-### Dialog (Modal)
+### Dialog
 ```tsx
 import { Dialog } from '@py15/headless-kit';
 
-function App() {
+export function Example() {
   return (
     <Dialog>
-      <Dialog.Trigger>Open Modal</Dialog.Trigger>
-      <Dialog.Content>
-        <Dialog.Title>Settings</Dialog.Title>
-        <p>Accessible modal content with focus trapping and portal rendering.</p>
-        <Dialog.Close />
+      <Dialog.Trigger className="btn">Open Modal</Dialog.Trigger>
+      <Dialog.Overlay className="overlay" />
+      <Dialog.Content className="content">
+        <Dialog.Title>System Message</Dialog.Title>
+        <p>Accessible modal with focus trapping.</p>
+        <Dialog.Close className="close-btn">Close</Dialog.Close>
       </Dialog.Content>
     </Dialog>
   );
@@ -30,86 +38,66 @@ function App() {
 
 ### Dropdown Menu
 ```tsx
-import { Dropdown } from '@yourname/headless-kit';
+import { Dropdown } from '@py15/headless-kit';
 
-function App() {
+export function Example() {
   return (
     <Dropdown>
-      <Dropdown.Trigger>Options</Dropdown.Trigger>
-      <Dropdown.Content>
-        <Dropdown.Item onSelect={() => console.log('Edit')}>Edit</Dropdown.Item>
-        <Dropdown.Item onSelect={() => console.log('Delete')}>Delete</Dropdown.Item>
+      <Dropdown.Trigger className="trigger">Open Menu</Dropdown.Trigger>
+      <Dropdown.Content className="menu">
+        <Dropdown.Item onSelect={() => console.log('Action')}>Action</Dropdown.Item>
+        <Dropdown.Item onSelect={() => console.log('Settings')}>Settings</Dropdown.Item>
       </Dropdown.Content>
     </Dropdown>
   );
 }
 ```
 
-### Tabs
-```tsx
-import { Tabs } from '@py15/headless-kit';
+## 🛠️ Development & Running Locally
 
-function App() {
-  return (
-    <Tabs defaultValue="account">
-      <Tabs.List>
-        <Tabs.Trigger value="account">Account</Tabs.Trigger>
-        <Tabs.Trigger value="password">Password</Tabs.Trigger>
-      </Tabs.List>
-      <Tabs.Content value="account">Account settings...</Tabs.Content>
-      <Tabs.Content value="password">Change password...</Tabs.Content>
-    </Tabs>
-  );
-}
+### 1. Library Development
+To work on the library itself:
+```bash
+# Install dependencies
+npm install
+
+# Start Storybook for component development
+npm run storybook
+
+# Build the library (outputs to dist/)
+npm run build
 ```
 
-### Accordion
-```tsx
-import { Accordion } from '@py15/headless-kit';
-
-function App() {
-  return (
-    <Accordion defaultValue="item-1">
-      <Accordion.Item value="item-1">
-        <Accordion.Trigger>Section 1</Accordion.Trigger>
-        <Accordion.Content>Content 1...</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item value="item-2">
-        <Accordion.Trigger>Section 2</Accordion.Trigger>
-        <Accordion.Content>Content 2...</Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
-  );
-}
+### 2. Running the Demo App
+A Vite + Tailwind demo app is located in the `demo/` folder:
+```bash
+cd demo
+npm install
+npm run dev
 ```
-
-## 🏗️ Architecture
-
-This library follows the **Compound Component Pattern**, providing maximum flexibility while maintaining internal state management. We use the **React Context API** to share logic between components like Triggers, Content, and Items.
-
-### Key Principles:
-- **Headless**: No default styles, giving you full control over the look and feel.
-- **Tree-shakable**: Only include the components you use in your final bundle.
-- **Controlled & Uncontrolled**: All components support both `value`/`onValueChange` and `defaultValue` patterns.
-
-## ♿ Accessibility
-
-Accessibility is a first-class citizen in this library:
-- **Portals**: Dialogs and Dropdowns render to the body to avoid stacking context issues.
-- **Focus Management**: Automatic focus trapping in modals and focus restoration on close.
-- **Keyboard Navigation**: Full support for arrow keys, Escape key, and Home/End in menus and lists.
-- **ARIA Attributes**: Proper roles (`dialog`, `menu`, `tablist`, etc.) and states (`aria-expanded`, `aria-selected`) are handled automatically.
 
 ## 🧪 Testing
 
-### Storybook
-To interact with components in isolation:
+### Unit & Interaction Tests (Vitest)
+Runs tests for components and Storybook interactions:
 ```bash
-npm run storybook
+npm run test
 ```
 
-### Cypress
-To run end-to-end tests:
+### End-to-End Tests (Cypress)
+To run component testing via Cypress:
 ```bash
-npx cypress open
+# Open Cypress UI
+npm run cypress:open
+
+# Run Cypress headless
+npm run cypress:run
 ```
+
+## 🏗️ Architecture & Accessibility
+
+This library follows the **Compound Component Pattern**, built with the **React Context API** for seamless state sharing.
+
+- **Headless**: Completely unstyled for maximum customizability.
+- **Accessible**: Implements WAI-ARIA patterns, focus management, and keyboard navigation (including typeahead in menus).
+- **Modern**: Built with TypeScript and Vite, fully tree-shakable.

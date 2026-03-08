@@ -18,6 +18,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "vitest",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
